@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
+from pathlib import Path
 
 load_dotenv()
 
@@ -15,8 +16,15 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 30
 
     # Cerfificate configuration
-    cert_public_key_path: str = "certs/"
-    cert_cerificate_path: str = "certs/certs/"
+    # Certificate paths
+    BASE_DIR: Path = Path(__file__).parent.parent.parent
+    CERTS_BASE_DIR: Path = BASE_DIR / "certs"
+    
+    CA_CERT_PATH: str = str(CERTS_BASE_DIR / "ca" / "ca_cert.pem")
+    CA_KEY_PATH: str = str(CERTS_BASE_DIR / "ca" / "ca_key.pem")
+    CERTIFICATES_PATH: str = str(CERTS_BASE_DIR / "vehicles" / "certs")
+    PRIVATE_KEYS_PATH: str = str(CERTS_BASE_DIR / "vehicles" / "private")
+    PUBLIC_KEYS_PATH: str = str(CERTS_BASE_DIR / "vehicles" / "public")
 
     class Config:
         env_file = ".env"

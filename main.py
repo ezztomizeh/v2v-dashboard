@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from config.database import connect_to_mongodb, close_mongodb_connection
-from api.v1 import vehicles
+from api.v1 import vehicles, certificates
 from contextlib import asynccontextmanager
 
 @asynccontextmanager
@@ -29,6 +29,7 @@ app.add_middleware(
 )
 
 app.include_router(vehicles.router, prefix="/api/v1", tags=["Vehicles"])
+app.include_router(certificates.router, prefix="/api/v1", tags=["Certificates"])
 
 @app.get("/")
 async def root():
