@@ -4,6 +4,10 @@ motor==3.7.1
 python-dotenv==1.0.1
 pydantic==2.12.5
 pydantic_settings==2.13.0
-cryptography==42.0.5
+cryptography==42.0.7
 OpenSSL==23.2.0
 python-dateutil==2.9.0
+python-jose[cryptography]==3.4.0     
+passlib[bcrypt]==1.7.4                
+python-multipart==0.0.20             
+redis==6.4.0                      
