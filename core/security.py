@@ -18,6 +18,9 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
 
+def get_password_hash(plain_password: str) -> str:
+    return pwd_context.hash(plain_password)
+
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password,hashed_password)
 
@@ -170,7 +173,7 @@ async def get_current_api_key(
                         detail="Invalid API Key")
 
 
-def check_premissions(required_premissions: List[str]):
+def check_permissions(required_premissions: List[str]):
     async def permission_checker(current_user: dict = Depends(get_current_user)):
         
         user_premissions = current_user.get("premissions",[])
